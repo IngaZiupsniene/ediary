@@ -1,4 +1,4 @@
-package demo.service;
+package demo.service.userService;
 
 import demo.model.User;
 

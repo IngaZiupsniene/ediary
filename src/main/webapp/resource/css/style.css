@@ -1,6 +1,4 @@
-body{
 
-}
 .wrapper {
     margin-top: 80px;
     margin-bottom: 20px;
@@ -54,10 +52,10 @@ input[type="password"] {
 .show-erorr{
     color:red;
 }
-.inputnewstudent{
+.headeris{
     margin-bottom: 20px;
     margin-top: 20px;
-    margin-left: 50px;
+    margin-left: 100px;
 }
 .save_button{
     display: none;
@@ -89,8 +87,6 @@ input[type="password"] {
     list-style-type: none;
 }
 
-
-
   .menu_simple ul li a {
       text-decoration: none;
       color: white;
@@ -100,15 +96,27 @@ input[type="password"] {
   }
 
   .menu_simple ul li a:visited {
-
       color: white;
-
   }
 
 
   .menu_simple ul li a:hover, .menu_simple ul li .current {
-
       color: white;
       background-color: #5FD367;
-
   }
+.menu_image{
+    padding-left: 25px;
+    width: 200px;
+    height: 200px;
+
+}
+#myInput {
+background-color: rgba(160,158,223,0.34);
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border:  1px  rgba(5, 5, 4, 0.99);
+    margin-bottom: 12px;
+}

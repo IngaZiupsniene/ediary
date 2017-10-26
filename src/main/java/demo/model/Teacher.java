@@ -11,9 +11,11 @@ public class Teacher {
     String surname;
     String phone;
     String email;
-    String subject;
+    List<Schoolsubject> subject;
     Schoolclass schoolclass;
     User user;
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -57,11 +59,11 @@ public class Teacher {
         this.email = email;
     }
 
-    public String getSubject() {
+    public List<Schoolsubject> getSubject() {
         return subject;
     }
 
-    public void setSubject(String subject) {
+    public void setSubject(List<Schoolsubject> subject) {
         this.subject = subject;
     }
 

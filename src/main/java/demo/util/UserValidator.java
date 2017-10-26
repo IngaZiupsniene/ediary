@@ -1,7 +1,7 @@
 package demo.util;
 
 import demo.model.User;
-import demo.service.IUserService;
+import demo.service.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

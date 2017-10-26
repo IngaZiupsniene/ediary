@@ -1,14 +1,11 @@
-package demo.service;
+package demo.service.userService;
 
-import demo.model.Role;
 import demo.model.User;
 import demo.repository.IRoleRep;
 import demo.repository.IUserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 public class UserServiceImp implements IUserService {

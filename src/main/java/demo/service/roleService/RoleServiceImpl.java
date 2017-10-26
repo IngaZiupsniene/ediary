@@ -1,4 +1,4 @@
-package demo.service;
+package demo.service.roleService;
 
 import demo.model.Role;
 import demo.repository.IRoleRep;
