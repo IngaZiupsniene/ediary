@@ -18,7 +18,8 @@ public class TeacherServiceImpl implements ITeacherService {
 
     @Override
     public Teacher save(Teacher teacher) { //tinka ir update ir add
-      return iTeacherRep.save(teacher);
+
+        return iTeacherRep.save(teacher);
     }
 
     @Override
@@ -29,6 +30,11 @@ public class TeacherServiceImpl implements ITeacherService {
     @Override
     public void delete(long id) {
         iTeacherRep.delete(id);
+    }
+
+    @Override
+    public Teacher saveandflush(Teacher teacher) {
+        return iTeacherRep.saveAndFlush(teacher);
     }
 
 }

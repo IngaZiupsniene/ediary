@@ -6,12 +6,15 @@ import java.util.Set;
 @Entity
 @Table(name = "ediary_role")
 public class Role {
-    long id;
-    String name;
-    Set<User> users;
+    private long id;
+    private String name;
+    private Set<User> users;
+
+    public Role() {
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

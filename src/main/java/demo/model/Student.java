@@ -6,15 +6,18 @@ import java.util.List;
 @Entity
 @Table(name = "ediary_student")
 public class Student {
-    long id;
-    String name;
-    String surname;
-    Schoolclass schoolclass;
-    Parents parents;
-    User user;
+    private long id;
+    private String name;
+    private String surname;
+    private Schoolclass schoolclass;
+    private Parents parents;
+    private User user;
+
+    public Student() {
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

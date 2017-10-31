@@ -120,3 +120,6 @@ background-color: rgba(160,158,223,0.34);
     border:  1px  rgba(5, 5, 4, 0.99);
     margin-bottom: 12px;
 }
+.checkbox_margin{
+    margin: 10px;
+}

@@ -1,24 +1,32 @@
 package demo.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ediary_teacher")
 public class Teacher {
-    long id;
-    String name;
-    String surname;
-    String phone;
-    String email;
-    List<Schoolsubject> subject;
-    Schoolclass schoolclass;
-    User user;
+    private long id;
+    private String name;
+    private String surname;
+    private String phone;
+    private String email;
+    private List<Schoolsubject> subject;
+    private Schoolclass schoolclass;
+    private User user;
+
+
+    public Teacher() {
+        subject=new ArrayList<>();
+    }
+
+
 
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -59,6 +67,7 @@ public class Teacher {
         this.email = email;
     }
 
+    @OneToMany(mappedBy = "teacher")
     public List<Schoolsubject> getSubject() {
         return subject;
     }

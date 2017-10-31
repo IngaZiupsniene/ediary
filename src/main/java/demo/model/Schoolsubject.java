@@ -1,7 +1,6 @@
 package demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 
@@ -13,6 +12,12 @@ public class Schoolsubject {
     private Teacher teacher;
 
 
+
+    public Schoolsubject() {
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -29,6 +34,7 @@ public class Schoolsubject {
         this.name = name;
     }
 
+    @ManyToOne
     public Teacher getTeacher() {
         return teacher;
     }

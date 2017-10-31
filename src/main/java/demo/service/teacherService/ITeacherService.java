@@ -10,5 +10,6 @@ public interface ITeacherService {
     Teacher save(Teacher teacher);
     Teacher findById(long id);
     void delete(long id);
+    Teacher saveandflush(Teacher teacher);
 
 }

@@ -6,16 +6,17 @@ import java.util.Set;
 @Entity
 @Table(name = "ediary_user")
 public class User {
-    long id;
-    String username;
-    String password;
-    String passwordconfirm;
-    Role role;
+    private long id;
+    private String username;
+    private String password;
+    private String passwordconfirm;
+    private Role role;
 
-
+    public User() {
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

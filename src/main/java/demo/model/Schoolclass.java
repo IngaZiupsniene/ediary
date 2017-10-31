@@ -1,17 +1,22 @@
 package demo.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ediary_schoolclass")
 public class Schoolclass {
-    long id;
-    String name;
-   List<Student> studentList;
+    private long id;
+    private String name;
+   private List<Student> studentList;
+
+    public Schoolclass() {
+        studentList=new ArrayList<>();
+    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }

@@ -21,14 +21,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests().antMatchers("/resource/**","/register").permitAll().anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/main") //eina i pagrindini puslapi, jei praeina visus prisijungimus
+    protected void configure(HttpSecurity http) throws Exception{http
+//            .authorizeRequests().antMatchers("/resource/**","/register").permitAll().anyRequest().authenticated()
+//                .and()
+//                .formLogin().loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/main") //eina i pagrindini puslapi, jei praeina visus prisijungimus
+//                .and().logout().permitAll().and().csrf().disable();
 
-                .and().logout().permitAll().and().csrf().disable();;
-
+ .authorizeRequests().antMatchers("/resource/**", "/register").permitAll().anyRequest().authenticated()
+                .and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/main")
+                .and().logout().permitAll().logoutSuccessUrl("/login")
+                .and().csrf().disable();
     }
 
     @Autowired
