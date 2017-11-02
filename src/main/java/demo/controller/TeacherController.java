@@ -13,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -27,29 +25,19 @@ public class TeacherController {
     ISchoolsubjectService iSchoolsubjectService;
 
 
-//    @RequestMapping(value = "/main")
-//    public String teacherList(){
-//        return "teacher";
-//    }
-
-
-
     @RequestMapping(value = "/teacherlist", method = RequestMethod.GET)
     public ModelAndView teacherlist() {
         ModelAndView model = new ModelAndView("teacher");
         List<Teacher> teachers = iTeacherService.teacherList();
         model.addObject("teacherlist", teachers);
-//        teachers.forEach(c-> System.out.println("subject sarasas"+c.getSubject()));
         List<Schoolclass> schoolclassList=iSchoolClassService.schoolclasslist();
         model.addObject("classlist", schoolclassList);
+
         return model;
     }
 
-
         @RequestMapping(value = "/addteacher", method = RequestMethod.POST)
-
-        public String addTeacher(
-                                         @RequestParam (value = "name") String name,
+        public String addTeacher(@RequestParam (value = "name") String name,
                                  @RequestParam (value = "surname") String surname,
                                  @RequestParam (value = "phone") String phone,
                                  @RequestParam (value = "email") String email,
@@ -70,7 +58,6 @@ public class TeacherController {
             schoolSubject.setTeacher(teacher1);
             iSchoolsubjectService.save(schoolSubject);
        }
-
             return "redirect:/teacherlist";
     }
 
@@ -82,6 +69,12 @@ public class TeacherController {
 
          }
 
+    @RequestMapping(value = "/teacheredit", method = RequestMethod.PUT)
+    @ResponseBody
+    public void editteacher(@RequestBody Teacher teacher){
+        iTeacherService.save(teacher);
+
+    }
 
 
 

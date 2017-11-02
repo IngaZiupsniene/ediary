@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>E-dienynas</title>
+    <title>Mokytojai</title>
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -34,12 +34,12 @@
 
             <div class="row" style="padding-bottom: 20px">
                 <div class="col-5" style="padding-top: 20px">
-                    <h5>Mokytojų sąrašas (mokytojų skaičius: xx) </h5>
+                    <h5>Mokytojų sąrašas (mokytojų skaičius: ${teacherlist.size()}) </h5>
                 </div>
 
                 <div class="col-2" style="padding-top: 20px">
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#teacherModal">
                         Naujas mokytojas
                     </button>
                 </div >
@@ -48,7 +48,7 @@
                 <!-- Modal -->
 
                 <form action="/addteacher" method="post">
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -85,9 +85,7 @@
                                     <div class="row">
                                     <div class="col">
                                         <div class="">
-                                            <%--<form:checkbox path="subject" value="Lietuvių k."/>--%>
-                                            <%--<form:checkbox path="subject" value="anglu k."/>--%>
-                                            <%--<form:checkbox path="subject" value="rusu k."/>--%>
+
                                             <label><input type="checkbox" class="chk" name="subject" value="lietuviu k.">Lietuvių k.</label>
                                         </div>
                                         <div class="checkbox">
@@ -123,20 +121,11 @@
 
                                     </div>
 
-                                    <%--<div class="row">--%>
-                                        <%--<c:forEach items="${classlist}" var="sc_class">--%>
-                                            <%--<div class="checkbox checkbox_margin">--%>
-                                                <%--<label><input type="checkbox" value=""><c:out value="${sc_class.getName()}"/></label>--%>
-                                            <%--</div>--%>
-                                        <%--</c:forEach>--%>
-                                    <%--</div>--%>
-
-
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Grįžti</button>
                                 <button type="submit" class="btn btn-primary" onclick="">Išsaugoti</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Grįžti</button>
                             </div>
                         </div>
                     </div>
@@ -147,10 +136,11 @@
 
 
             <div class="table-responsive">
-                <input  class="border border-primary" type="text" id="myInput" onkeyup="myFunction()" placeholder="Ieškoti pagal pavardę..." >
-                <table  id="myTable" class="table table-bordred ">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+                <%--<input  class="border border-primary" type="text" id="teacherInput" onkeyup="teacher_search_byName()" placeholder="Ieškoti pagal pavardę..." >--%>
+                <table id="myTable" class="table table-bordred ">
                     <tr style="border: double">
-
+                        <th>Nr.</th>
                         <th>Pavardė</th>
                         <th>Vardas</th>
                         <th>Telefonas</th>
@@ -162,6 +152,7 @@
 
                     <c:forEach var="tc" items="${teacherlist}">
                         <tr id="teacher_row${tc.getId()}">
+                            <td></td>
                             <td id="teacher_row_surname${tc.getId()}">${tc.getSurname()}</td>
                             <td id="teacher_row_name${tc.getId()}">${tc.getName()}</td>
                             <td id="teacher_row_phone${tc.getId()}">${tc.getPhone()}</td>
@@ -182,7 +173,8 @@
 
                             <td>
                                 <input type="button" id="teacher_delete${tc.getId()}" class="btn btn-primary btn-xs" value="Pašalinti" onclick="teacher_delete_row(${tc.getId()})"/>
-                                <input type="button" class="btn btn-primary btn-xs" value="Redaguoti" onclick=""/>
+                                <input type="button" id="teacher_edit${tc.getId()}" class="btn btn-primary btn-xs" value="Redaguoti" onclick="teacher_edit_row(${tc.getId()})"/>
+                                <input type="button" id="teacher_save${tc.getId()}" class="btn btn-primary btn-xs save_button" value="Saugoti" onclick="teacher_save_row(${tc.getId()})"/>
 
                             </td>
                         </tr>
@@ -198,42 +190,39 @@
 
 
 </div>
-<%--<script>--%>
-    <%--function addteacher(){--%>
-        <%--/* declare an checkbox array */--%>
-        <%--var chkArray = [];--%>
 
-        <%--/* look for all checkboes that have a class 'chk' attached to it and check if it was checked */--%>
-        <%--$(".chk:checked").each(function() {--%>
-            <%--chkArray.push($(this).val());--%>
-        <%--});--%>
+<script>
+    function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
 
-        <%--/* we join the array separated by the comma */--%>
-        <%--var selected;--%>
-        <%--selected = chkArray.join(',') ;--%>
-
-        <%--/* check if there is selected checkboxes, by default the length is 1 as it contains one single comma */--%>
-        <%--if(selected.length > 1){--%>
-            <%--alert("You have selected " + selected);--%>
-        <%--}else{--%>
-            <%--alert("Please at least one of the checkbox");--%>
-        <%--}--%>
-    <%--}--%>
-<%--//</script>--%>
-
-<script type="text/javascript" src="../../resource/js/table.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+<script type="text/javascript" src="../../resource/js/teacher.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 
-<script type="text/javascript" src="../../resource/js/modal.js"></script>
+
 <script type="text/javascript" src="../../resource/js/jquery-3.2.1.min.js"></script>
+
 <script type="text/javascript" src="../../resource/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../../resource/js/teacher.js"></script>
-
-
 </body>
 </html>

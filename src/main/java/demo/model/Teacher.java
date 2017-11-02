@@ -76,7 +76,7 @@ public class Teacher {
         this.subject = subject;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "schoolclass_id")
     public Schoolclass getSchoolclass() {
         return schoolclass;

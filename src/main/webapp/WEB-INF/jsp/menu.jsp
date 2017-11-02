@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dainius
-  Date: 2017.09.11
-  Time: 11:07
-  To change this template use File | Settings | File Templates.
---%>
+
 
 <link type="text/css" href="../../resource/css/bootstrap.min.css" rel="stylesheet">
 
@@ -36,10 +30,10 @@
                 </div>
             </li>
             <li>
-                <a href="#">Klases</a>
+                <a href="/studentlist">Klases</a>
                 <div>
                     <ul>
-                        <li><a href="#">Klasiu sarasas</a></li>
+                        <li><a href="/studentlist">Klasiu sarasas</a></li>
                         <li><a href="#">?</a></li>
                     </ul>
                 </div>

@@ -1,4 +1,5 @@
-function myFunction() {
+
+function student_search_byName() {
     var input, filter, table, tr, td, i;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
