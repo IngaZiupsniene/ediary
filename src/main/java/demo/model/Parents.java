@@ -14,6 +14,7 @@ public class Parents {
     private String adress;
     private List<Student> studentList;
     private User user;
+    private String personalcode;
 
     public Parents() {
         studentList=new ArrayList<>();
@@ -86,5 +87,13 @@ public class Parents {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPersonalcode() {
+        return personalcode;
+    }
+
+    public void setPersonalcode(String personalcode) {
+        this.personalcode = personalcode;
     }
 }

@@ -4,4 +4,6 @@ import demo.model.Schoolsubject;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ISchoolSubjectRep extends JpaRepository<Schoolsubject, Long> {
+//    Teacher findBySchoolclass_Name(String classname);
+    void deleteSchoolsubjectsByTeacher_Id(long id);
 }

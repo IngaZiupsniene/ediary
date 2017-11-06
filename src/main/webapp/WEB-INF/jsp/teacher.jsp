@@ -80,38 +80,29 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label class="form-control">Dėstomas dalykas:</label>
-                                </div>
-                                    <div class="row">
                                     <div class="col">
-                                        <div class="">
+                                        <label>Identifikacijos kodas</label>
+                                        <input type="text" name="personalcode" class="form-control">
+                                    </div>
 
-                                            <label><input type="checkbox" class="chk" name="subject" value="lietuviu k.">Lietuvių k.</label>
-                                        </div>
-                                        <div class="checkbox">
-                                            <label><input type="checkbox" class="chk" name="subject" value="matematika">Matematika</label>
-                                        </div>
-                                        <div class="checkbox ">
-                                            <label><input type="checkbox" class="chk" name="subject" value="istorija" >Istorija</label>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" class="chk" name="subject" value="anglu k">Anglų k.</label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" class="chk" name="subject" value="muzika">Muzika</label>
-                                    </div>
-                                    <div class="checkbox ">
-                                        <label><input type="checkbox" class="chk" name="subject" value="geografija" >Geografija</label>
-                                    </div>
-                                    </div>
-                                    </div>
+
+                                </div>
+
+                                <label for="subject">Dėstomas dalykas: </label><br>
+                                <select multiple class="form-control" name="subject" id="subject">
+
+                                    <c:forEach var="subject" items="${schoolsubjectlist}">
+
+                                        <option value="${subject.getId()}">${subject.getName()}</option>
+                                    </c:forEach>
+
+                                </select>
+
 
                                     <div class="row" style="padding-bottom: 10px" >
 
                                         <div class="col" style="padding-bottom: 10px" >
-                                            <select id="" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
+                                            <select id="schoolclass" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
                                                 <option style="padding-bottom: 10px" value="0">Pasirinkite auklėjamą klasę </option>
                                             <c:forEach var="cl" items="${classlist}">
                                                 <option  value="${cl.getId()}">${cl.getName()}</option>
@@ -162,7 +153,8 @@
 
 
                                     <c:forEach items="${tc.getSubject()}" var="sub">
-                                        <c:out value="${sub.getName()}"/><br>
+                                        <c:out value="${sub.getSchoolSubjectName().getName()}"/></br>
+
                                     </c:forEach>
 
                                 </table>
@@ -172,9 +164,10 @@
                             <td id="teacher_row_class${tc.getId()}">${tc.getSchoolclass().getName()}</td>
 
                             <td>
-                                <input type="button" id="teacher_delete${tc.getId()}" class="btn btn-primary btn-xs" value="Pašalinti" onclick="teacher_delete_row(${tc.getId()})"/>
-                                <input type="button" id="teacher_edit${tc.getId()}" class="btn btn-primary btn-xs" value="Redaguoti" onclick="teacher_edit_row(${tc.getId()})"/>
-                                <input type="button" id="teacher_save${tc.getId()}" class="btn btn-primary btn-xs save_button" value="Saugoti" onclick="teacher_save_row(${tc.getId()})"/>
+                                <input type="button" id="teacher_delete${tc.getId()}" class="btn btn-primary btn-sm" value="Pašalinti" onclick="teacher_delete_row(${tc.getId()})"/>
+                               <form action="/getoneteacher" method="post">
+                                   <button type="submit" name="getoneteacher" id="${tc.getId()}" class="btn btn-primary btn-sm" value="${tc.getId()}">Redaguoti</button>
+                               </form>
 
                             </td>
                         </tr>
@@ -191,28 +184,6 @@
 
 </div>
 
-<script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
 <script type="text/javascript" src="../../resource/js/teacher.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

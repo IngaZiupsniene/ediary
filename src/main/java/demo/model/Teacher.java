@@ -15,6 +15,8 @@ public class Teacher {
     private List<Schoolsubject> subject;
     private Schoolclass schoolclass;
     private User user;
+    private String personalcode;
+
 
 
     public Teacher() {
@@ -94,5 +96,13 @@ public class Teacher {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPersonalcode() {
+        return personalcode;
+    }
+
+    public void setPersonalcode(String personalcode) {
+        this.personalcode = personalcode;
     }
 }

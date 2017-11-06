@@ -12,6 +12,7 @@ public class Student {
     private Schoolclass schoolclass;
     private Parents parents;
     private User user;
+    private String personalcode;
 
     public Student() {
     }
@@ -68,5 +69,13 @@ public class Student {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String getPersonalcode() {
+        return personalcode;
+    }
+
+    public void setPersonalcode(String personalcode) {
+        this.personalcode = personalcode;
     }
 }

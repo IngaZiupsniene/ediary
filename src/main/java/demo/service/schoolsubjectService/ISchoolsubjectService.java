@@ -5,6 +5,8 @@ import demo.model.Schoolsubject;
 import java.util.List;
 
 public interface ISchoolsubjectService {
-    List<Schoolsubject> classlist();
-    Schoolsubject save(Schoolsubject schoolsubject);
+    List<Schoolsubject> subjectlist();
+    Schoolsubject saveAndFlush(Schoolsubject schoolsubject);
+    void delete(long id);
+    void deleteSchoolsubjectsByTeacher_Id(long id);
 }

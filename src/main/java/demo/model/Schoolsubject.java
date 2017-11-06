@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "ediary_schoolsubject")
 public class Schoolsubject {
     private long id;
-    private String name;
+    private SchoolSubjectName schoolSubjectName;
     private Teacher teacher;
 
 
@@ -26,12 +26,13 @@ public class Schoolsubject {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    @ManyToOne
+    public SchoolSubjectName getSchoolSubjectName() {
+        return schoolSubjectName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSchoolSubjectName(SchoolSubjectName schoolSubjectName) {
+        this.schoolSubjectName = schoolSubjectName;
     }
 
     @ManyToOne

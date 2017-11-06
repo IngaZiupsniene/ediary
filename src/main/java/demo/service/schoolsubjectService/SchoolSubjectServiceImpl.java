@@ -14,12 +14,25 @@ public class SchoolSubjectServiceImpl implements ISchoolsubjectService{
     ISchoolSubjectRep iSchoolSubjectRep;
 
     @Override
-    public List<Schoolsubject> classlist() {
+    public List<Schoolsubject> subjectlist() {
         return iSchoolSubjectRep.findAll();
     }
 
+
+
+
     @Override
-    public Schoolsubject save(Schoolsubject schoolsubject) {
-        return iSchoolSubjectRep.save(schoolsubject);
+    public Schoolsubject saveAndFlush(Schoolsubject schoolsubject) {
+        return iSchoolSubjectRep.saveAndFlush(schoolsubject);
+    }
+
+    @Override
+    public void delete(long id) {
+        iSchoolSubjectRep.delete(id);
+    }
+
+    @Override
+    public void deleteSchoolsubjectsByTeacher_Id(long id) {
+        iSchoolSubjectRep.deleteSchoolsubjectsByTeacher_Id(id);
     }
 }
