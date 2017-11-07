@@ -104,22 +104,20 @@ public class TeacherController {
 
         Teacher teacher1= iTeacherService.saveandflush(teacher);
 
-         String sqldelete="DELETE from ediary_schoolsubject WHERE teacher_id=?";
-         jdbcTemplate.update(sqldelete, teacher.getId());
+//         String sqldelete="DELETE from ediary_schoolsubject WHERE teacher_id=?";
+//         jdbcTemplate.update(sqldelete, teacher.getId());
+         iSchoolsubjectService.deleteSchoolsubjectsByTeacher_Id(teacher.getId());
 
         addshcoolsubject(subjectid, teacher1);
 
         return "redirect:/teacherlist";
-
     }
-
 
 
     public void addshcoolsubject(long[] subjectid, Teacher teacher){
         for (long s : subjectid) {
             SchoolSubjectName schoolSubjectName = new SchoolSubjectName();
             schoolSubjectName.setId(s);
-
 
             Schoolsubject schoolSubject = new Schoolsubject();
             schoolSubject.setSchoolSubjectName(schoolSubjectName);

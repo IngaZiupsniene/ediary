@@ -26,6 +26,7 @@ public class ParentsController {
         model.addObject("studlist", studentList);
         return model;
     }
+
     @RequestMapping(value = "/parentsdelete", method = RequestMethod.POST)
     @ResponseBody
     public void deleteparents(@RequestBody Parents parents){
@@ -35,31 +36,17 @@ public class ParentsController {
 
 
     @RequestMapping(value = "/addsparents", method = RequestMethod.POST)
-    public String addTeacher(@RequestParam(value = "name") String name,
-                             @RequestParam (value = "surname") String surname,
-                             @RequestParam (value = "phone") String phone,
-                             @RequestParam (value = "email") String email,
-                             @RequestParam (value = "adress") String adress,
-                             @RequestParam (value = "personalcode") String personalcode,
+    public String addparents(@ModelAttribute Parents parents,
                              @RequestParam (value = "studentid") long[] studentid){
-
-        Parents parents= new Parents();
-        parents.setName(name);
-        parents.setSurname(surname);
-        parents.setPhone(phone);
-        parents.setEmail(email);
-        parents.setAdress(adress);
-        parents.setPersonalcode(personalcode);
-
 
         Parents parents1= iParentsService.saveandflush(parents);
 
         for (long s : studentid) {
-            Student student = new Student();
-            student.setId(s);
+            Student student =  iStudentService.findById(s);
+
             student.setParents(parents1);
 
-            iStudentService.save(student);
+            iStudentService.saveandflush(student);
         }
         return "redirect:/parentslist";
     }

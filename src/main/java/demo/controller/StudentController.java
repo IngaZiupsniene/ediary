@@ -1,9 +1,6 @@
 package demo.controller;
 
-import demo.model.SchoolSubjectName;
-import demo.model.Schoolclass;
-import demo.model.Student;
-import demo.model.Teacher;
+import demo.model.*;
 import demo.service.parentsService.IParentsService;
 import demo.service.schoolclassService.ISchoolClassService;
 import demo.service.studentService.IStudentService;
@@ -12,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -54,33 +54,40 @@ public class StudentController {
         model.addObject("onestudent", student);
         List<Schoolclass> schoolclassList=iSchoolClassService.schoolclasslist();
         model.addObject("classlist", schoolclassList);
+        List<Parents> parentsList=iParentsService.parentList();
+        model.addObject("parentlist", parentsList);
         return model;
     }
-//
-//    @RequestMapping(value = "/updatestudent", method = RequestMethod.POST)
-//    public String updatestudent( @ModelAttribute Student student){
-//        iStudentService.saveandflush(student);
-//        return "redirect:/studentlist";
-//    }
+
 
     @RequestMapping(value = "/updatestudent", method = RequestMethod.POST)
     public String editteacher(@RequestParam (value = "name") String name,
                               @RequestParam (value = "studentid") long studentid,
                               @RequestParam (value = "surname") String surname,
                               @RequestParam (value = "personalcode") String personalcode,
-                              @RequestParam (value = "schoolclass") Schoolclass schoolclassid){
+                              @RequestParam (value = "parents") Parents parents,
+                              @RequestParam (value = "parents_new") Parents parents_new,
+                              @RequestParam (value = "schoolclass") Schoolclass schoolclass,
+                              @RequestParam (value = "schoolclass_new") Schoolclass schoolclass_newid){
 
         Student student= new Student();
         student.setId(studentid);
         student.setName(name);
         student.setSurname(surname);
         student.setPersonalcode(personalcode);
-        student.setSchoolclass(schoolclassid);
+        if(schoolclass_newid!=schoolclass){
+            student.setSchoolclass(schoolclass_newid);
+        }else student.setSchoolclass(schoolclass);
+        if(parents_new!=parents){
+            student.setParents(parents_new);
+        }else student.setParents(parents);
 
         iStudentService.saveandflush(student);
         return "redirect:/studentlist";
 
     }
+
+
 
 
 }

@@ -29,8 +29,8 @@
 
             <h3 class="form-signin-heading">Prisijungimo langas</h3>
             <hr class="colorgraph"><br>
-            <input name="username" type="text" placeholder="Vartotojo vardas" class="form-control" autofocus="true"/>
-            <input name="password" type="password" placeholder="Slaptažodis" class="form-control " />
+            <input name="username" type="text" placeholder="Vartotojo vardas" class="form-control" value="ingazzz" autofocus="true"/>
+            <input name="password" type="password" placeholder="Slaptažodis" class="form-control " value="saulyte" />
 
 
 

@@ -49,3 +49,18 @@ function student_delete_row(id) {
         }
     });
 }
+
+function delete_parents_from_student(id) {
+    // var parentid=document.getElementById("student_parent_id").value;
+    var stud_id={id:id};
+    $.ajax({
+        url:"/parentdeletefromstudent",
+        type:"POST",
+        contentType:"application/json; charset=utf-8",
+        data:JSON.stringify(stud_id),
+        datatype:"Json",
+        success:function (data, status) {
+
+        }
+    });
+}
