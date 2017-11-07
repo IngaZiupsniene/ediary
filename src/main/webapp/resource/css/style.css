@@ -127,7 +127,7 @@ table tr td:first-child::before {
     margin-right: 0.5em;
 }
 
-#myInput {
+.myInput {
 
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */

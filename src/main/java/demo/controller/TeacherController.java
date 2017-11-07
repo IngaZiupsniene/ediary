@@ -70,16 +70,8 @@ public class TeacherController {
 
           Teacher teacher1= iTeacherService.saveandflush(teacher);
 
-            for (long s : subject) {
-                SchoolSubjectName schoolSubjectName= new SchoolSubjectName();
-                schoolSubjectName.setId(s);
+            addshcoolsubject(subject,teacher1);
 
-
-            Schoolsubject schoolSubject = new Schoolsubject();
-            schoolSubject.setSchoolSubjectName(schoolSubjectName);
-            schoolSubject.setTeacher(teacher1);
-            iSchoolsubjectService.saveAndFlush(schoolSubject);
-       }
             return "redirect:/teacherlist";
     }
 
@@ -102,35 +94,30 @@ public class TeacherController {
         model.addObject("classlist", schoolclassList);
              return model;
     }
-//
-    @RequestMapping(value = "/updateteacher", method = RequestMethod.POST)
-    public String editteacher(@RequestParam (value = "name") String name,
-                            @RequestParam (value = "teacherid") long teacherid,
-                            @RequestParam (value = "surname") String surname,
-                            @RequestParam (value = "phone") String phone,
-                            @RequestParam (value = "email") String email,
-                            @RequestParam (value = "personalcode") String personalcode,
-                            @RequestParam (value = "schoolclass") Schoolclass schoolclassid,
-                            @RequestParam (value = "subject") long[] subject ){
 
-        Teacher teacher= new Teacher();
+
+    @RequestMapping(value = "/updateteacher", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded"})
+    public String editteacher(@ModelAttribute Teacher teacher,
+                              @RequestParam (value = "subjectid") long[] subjectid,
+                              @RequestParam(value = "teacherid") long teacherid){
         teacher.setId(teacherid);
-        teacher.setName(name);
-        teacher.setSurname(surname);
-        teacher.setPhone(phone);
-        teacher.setEmail(email);
-        teacher.setPersonalcode(personalcode);
-        teacher.setSchoolclass(schoolclassid);
 
-         iTeacherService.saveandflush(teacher);
+        Teacher teacher1= iTeacherService.saveandflush(teacher);
 
          String sqldelete="DELETE from ediary_schoolsubject WHERE teacher_id=?";
-         jdbcTemplate.update(sqldelete, teacherid);
+         jdbcTemplate.update(sqldelete, teacher.getId());
 
-//         iSchoolsubjectService.deleteSchoolsubjectsByTeacher_Id(teacherid);
+        addshcoolsubject(subjectid, teacher1);
 
-        for (long s : subject) {
-            SchoolSubjectName schoolSubjectName= new SchoolSubjectName();
+        return "redirect:/teacherlist";
+
+    }
+
+
+
+    public void addshcoolsubject(long[] subjectid, Teacher teacher){
+        for (long s : subjectid) {
+            SchoolSubjectName schoolSubjectName = new SchoolSubjectName();
             schoolSubjectName.setId(s);
 
 
@@ -139,10 +126,7 @@ public class TeacherController {
             schoolSubject.setTeacher(teacher);
             iSchoolsubjectService.saveAndFlush(schoolSubject);
         }
-        return "redirect:/teacherlist";
-
     }
-
 
 
 

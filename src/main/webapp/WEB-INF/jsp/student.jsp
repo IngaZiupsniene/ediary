@@ -71,23 +71,23 @@
                                 </div>
 
                                     <div class="row" style="padding-bottom: 10px" >
-
-                                        <div class="col" style="padding-bottom: 10px" >
-                                            <select id="" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
-                                                <option style="padding-bottom: 10px" value="0">Pasirinkite klasę </option>
+                                        <div class="col">
+                                            <label>Identifikacijos kodas</label>
+                                            <input type="text" name="personalcode" class="form-control">
+                                        </div>
+                                    </div>
+                                <div class="row" style="padding-bottom: 10px" >
+                                        <div class="col" >
+                                            <label>Pasirinkite klasę:</label>
+                                            <select id="" name="schoolclass" class="form-control" >
+                                                <%--<option style="padding-bottom: 10px" value="0">Pasirinkite klasę </option>--%>
                                             <c:forEach var="cl" items="${classlist}">
                                                 <option  value="${cl.getId()}">${cl.getName()}</option>
                                             </c:forEach>
                                             </select>
                                         </div>
-
-                                    </div>
-                                <div class="row">
-                                    <%--<label>Įvesti globėjų info:</label>--%>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#parentModal">
-                                        Įvesti globėjų info:
-                                    </button>
                                 </div>
+
 
                             </div>
 
@@ -104,7 +104,15 @@
 
 
             <div class="table-responsive">
-                <input  class="border border-primary" type="text" id="myInput" onkeyup="student_search_byName()" placeholder="Ieškoti pagal pavardę..." >
+                <div class="row">
+                    <div class="col-3">
+                        <input  class="border border-primary myInput" type="text" id="student_surname_search" onkeyup="student_search_byName()" placeholder="Ieškoti pagal pavardę..." >
+                    </div>
+                    <div class="col-3">
+                        <input  class="border border-primary myInput" type="text" id="student_class_search" onkeyup="student_search_byClass()" placeholder="Ieškoti pagal klasę..." >
+                    </div>
+                </div>
+
                 <table  id="myTable" class="table table-bordred ">
                     <tr style="border: double">
                         <th>Nr.</th>
@@ -116,17 +124,17 @@
                     </tr>
 
                     <c:forEach var="stud" items="${studlist}">
-                        <tr id="student${stud.getId()}">
+                        <tr id="student_row${stud.getId()}">
                             <td></td>
                             <td id="student_row_surname${stud.getId()}">${stud.getSurname()}</td>
                             <td id="student_row_name${stud.getId()}">${stud.getName()}</td>
                             <td id="student_row_class${stud.getId()}">${stud.getSchoolclass().getName()}</td>
                             <td id="student_row_parent${stud.getId()}">${stud.getParents().getSurname()}, ${stud.getParents().getName()}</td>
                             <td>
-                                <input type="button" id="student_delete${stud.getId()}" class="btn btn-primary btn-xs" value="Pašalinti" onclick="student_delete_row(${stud.getId()})"/>
-                                <input type="button" id="student_edit${stud.getId()}" class="btn btn-primary btn-xs" value="Redaguoti" onclick="student_edit_row(${stud.getId()})"/>
-                                <input type="button" id="student_save${stud.getId()}" class="btn btn-primary btn-xs save_button" value="Saugoti" onclick="student_save_row(${stud.getId()})"/>
-
+                                <input type="button" id="student_delete${stud.getId()}" class="btn btn-primary btn-sm" value="Pašalinti" onclick="student_delete_row(${stud.getId()})"/>
+                                <form action="/getonestudent" method="post">
+                                    <button type="submit" name="getonestudent" id="${stud.getId()}" class="btn btn-primary btn-sm" value="${stud.getId()}">Redaguoti</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -144,7 +152,6 @@
 
 <script type="text/javascript" src="../../resource/js/student.js"></script>
 
-<%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--%>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>

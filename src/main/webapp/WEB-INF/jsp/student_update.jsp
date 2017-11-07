@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>Mokytojai</title>
+    <title>Mokiniai</title>
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -36,62 +36,38 @@
 
             <div class="row" style="padding-bottom: 20px">
                <div class="col-6">
-                    <h3>Mokytojo redagavimas</h3>
+                    <h3>Mokinio redagavimas</h3>
             </div>
                 </div>
 
             <div class="row">
                 <div class="col-6">
-                <form action="/updateteacher" method="post">
+                <form action="/updatestudent" method="post">
 
                                 <div class="row">
                                     <div class="col">
                                         <label>Vardas</label>
-                                        <input type="text" name="name" class="form-control" value="${oneteacher.getName()}">
+                                        <input type="text" name="name" class="form-control" value="${onestudent.getName()}">
                                     </div>
                                     <div class="col">
                                         <label>Pavardė</label>
-                                        <input type="text" name="surname" class="form-control" value="${oneteacher.getSurname()}">
+                                        <input type="text" name="surname" class="form-control" value="${onestudent.getSurname()}">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Telefonas</label>
-                                        <input type="text" name="phone" class="form-control" value="${oneteacher.getPhone()}">
-                                    </div>
-                                    <div class="col">
-                                        <label>El.paštas</label>
-                                        <input type="text" name="email" class="form-control" value="${oneteacher.getEmail()}">
-                                    </div>
-                                </div>
+
                                 <div class="row">
                                     <div class="col">
                                         <label>Identifikacijos kodas</label>
-                                        <input type="text" name="personalcode" class="form-control" value="${oneteacher.getPersonalcode()}">
+                                        <input type="text" name="personalcode" class="form-control" value="${onestudent.getPersonalcode()}">
                                     </div>
 
 
                                 </div>
-                    <div class="row">
-                        <div class="col-8">
-
-                            <label class="" >Dėstomas dalykas: </label><br>
-                            <select multiple class="form-control" name="subjectid" ">
-
-                                <c:forEach var="subject" items="${schoolsubjectlist}">
-
-                                    <option value="${subject.getId()}">${subject.getName()}</option>
-                                </c:forEach>
-
-                            </select>
-                        </div>
-
-                    </div>
 
                                     <div class="row" style="padding-top: 10px" >
 
                                         <div class="col" style="padding-top: 10px" >
-                                            <label>Pasirinkite auklėjamą klasę</label>
+                                            <label>Pasirinkite klasę</label>
                                             <select id="schoolclass" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
                                                 <%--<option style="padding-bottom: 10px" value="0"> </option>--%>
                                             <c:forEach var="cl" items="${classlist}">
@@ -106,7 +82,7 @@
 
                            <div class="row" style="padding-top: 10px">
                                <div class="col-1">
-                                <button type="submit" class="btn btn-primary" name="teacherid" value="${oneteacher.getId()}" onclick="">Išsaugoti</button>
+                                <button type="submit" class="btn btn-primary" name="studentid" value="${onestudent.getId()}" onclick="">Išsaugoti</button>
                            </div>
                             </div>
 

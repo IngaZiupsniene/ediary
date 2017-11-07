@@ -30,19 +30,19 @@
                 </div>
             </li>
             <li>
-                <a href="/studentlist">Klases</a>
+                <a href="/studentlist">Mokiniai</a>
                 <div>
                     <ul>
-                        <li><a href="/studentlist">Klasiu sarasas</a></li>
+                        <li><a href="/studentlist">Mokiniu sarasas</a></li>
                         <li><a href="#">?</a></li>
                     </ul>
                 </div>
             </li>
             <li>
-                <a href="#">Mokiniai</a>
+                <a href="/parentslist">Tevai</a>
                 <div>
                     <ul>
-                        <li><a href="#">Mokiniu sarasas</a></li>
+                        <li><a href="/parentslist">Tevu sarasas</a></li>
                         <li><a href="#">?</a></li>
                     </ul>
                 </div>

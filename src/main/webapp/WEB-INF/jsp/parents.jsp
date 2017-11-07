@@ -6,7 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-    <title>Mokytojai</title>
+    <title>Globejai</title>
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
@@ -34,25 +34,25 @@
 
             <div class="row" style="padding-bottom: 20px">
                 <div class="col-5" style="padding-top: 20px">
-                    <h5>Mokytojų sąrašas (mokytojų skaičius: ${teacherlist.size()}) </h5>
+                    <h5>Globeju sąrašas (globeju skaičius: ${parentlist.size()}) </h5>
                 </div>
 
                 <div class="col-2" style="padding-top: 20px">
 
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#teacherModal">
-                        Naujas mokytojas
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#parentsModal">
+                        Naujas globejas
                     </button>
                 </div >
 
 
                 <!-- Modal -->
 
-                <form action="/addteacher" method="post">
-                <div class="modal fade" id="teacherModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <form action="/addsparents" method="post">
+                <div class="modal fade" id="parentsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Naujo mokytojo įvedimas:</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Naujo mokinio įvedimas:</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -75,44 +75,38 @@
                                         <input type="text" name="phone" class="form-control">
                                     </div>
                                     <div class="col">
-                                        <label>El.paštas</label>
+                                        <label>El. pastas</label>
                                         <input type="text" name="email" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col">
+                                        <label>Adresas</label>
+                                        <input type="text" name="adress" class="form-control">
+                                    </div>
+                                    <div class="col">
                                         <label>Identifikacijos kodas</label>
                                         <input type="text" name="personalcode" class="form-control">
                                     </div>
-
-
                                 </div>
 
-                                <label for="subject">Dėstomas dalykas: </label><br>
-                                <select multiple class="form-control" name="subject" id="subject">
-
-                                    <c:forEach var="subject" items="${schoolsubjectlist}">
-
-                                        <option value="${subject.getId()}">${subject.getName()}</option>
-                                    </c:forEach>
-
-                                </select>
 
 
-                                    <div class="row" style="padding-bottom: 10px" >
 
-                                        <div class="col" style="padding-bottom: 10px" >
-                                            <select id="schoolclass" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
-                                                <option style="padding-bottom: 10px" value="0">Pasirinkite auklėjamą klasę </option>
-                                            <c:forEach var="cl" items="${classlist}">
-                                                <option  value="${cl.getId()}">${cl.getName()}</option>
+                                <div class="row" >
+                                        <div class="col" >
+                                            <label>Pasirinkite vaika:</label>
+                                            <select  multiple id="" name="studentid" class="form-control" >
+                                                <%--<option style="padding-bottom: 10px" value="0">Pasirinkite klasę </option>--%>
+                                            <c:forEach var="stud" items="${studlist}">
+                                                <option  value="${stud.getId()}">${stud.getName()},${stud.getSurname()} </option>
                                             </c:forEach>
                                             </select>
                                         </div>
+                                </div>
 
-                                    </div>
 
-                            </div>
+
 
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary" onclick="">Išsaugoti</button>
@@ -120,6 +114,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
 </form>
                 <!-- Modal -->
@@ -129,55 +124,49 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-3">
-                        <input  class="border border-primary myInput" type="text" id="teacher_surname_search" onkeyup="teacher_search_byName()" placeholder="Ieškoti pagal pavardę..." >
+                        <input  class="border border-primary myInput" type="text" id="parents_surname_search" onkeyup="parents_search_byName()" placeholder="Ieškoti pagal pavardę..." >
                     </div>
                     <div class="col-3">
-                        <input  class="border border-primary myInput" type="text" id="teacher_class_search" onkeyup="teacher_search_byClass()" placeholder="Ieškoti pagal klasę..." >
+                        <input  class="border border-primary myInput" type="text" id="parents_student_search" onkeyup="parents_search_byStudent()" placeholder="Ieškoti pagal mokini..." >
                     </div>
                 </div>
 
-                <%--<input type="text" id="myInput" onkeyup="teacher_search_byName()" placeholder="Search for names..">--%>
-                <%--<input  class="border border-primary" type="text" id="teacherInput" onkeyup="teacher_search_byName()" placeholder="Ieškoti pagal pavardę..." >--%>
-                <table id="myTable" class="table table-bordred ">
+                <table  id="myTable" class="table table-bordred ">
                     <tr style="border: double">
                         <th>Nr.</th>
                         <th>Pavardė</th>
                         <th>Vardas</th>
                         <th>Telefonas</th>
-                        <th>El.paštas</th>
-                        <th>Dalykai</th>
-                        <th>Auklėjama klasė</th>
-                        <th></th>
+                        <th>El.pastas</th>
+                        <th>Adresas</th>
+                        <th>Vaikai</th>
+                        <th>Veiksmai</th>
                     </tr>
 
-                    <c:forEach var="tc" items="${teacherlist}">
-                        <tr id="teacher_row${tc.getId()}">
+                    <c:forEach var="par" items="${parentlist}">
+                        <tr id="parents_row${par.getId()}">
                             <td></td>
-                            <td id="teacher_row_surname${tc.getId()}">${tc.getSurname()}</td>
-                            <td id="teacher_row_name${tc.getId()}">${tc.getName()}</td>
-                            <td id="teacher_row_phone${tc.getId()}">${tc.getPhone()}</td>
-                            <td id="teacher_row_email${tc.getId()}">${tc.getEmail()}</td>
-                            <td id="teacher_row_subject${tc.getId()}">
+                            <td id="student_row_surname${par.getId()}">${par.getSurname()}</td>
+                            <td id="student_row_name${par.getId()}">${par.getName()}</td>
+                            <td id="student_row_name${par.getId()}">${par.getPhone()}</td>
+                            <td id="student_row_name${par.getId()}">${par.getEmail()}</td>
+                            <td id="student_row_name${par.getId()}">${par.getAdress()}</td>
+                            <td id="student_row_class${par.getId()}">
                                 <table>
 
 
-                                    <c:forEach items="${tc.getSubject()}" var="sub">
-                                        <c:out value="${sub.getSchoolSubjectName().getName()}"/></br>
+                                    <c:forEach items="${par.getStudentList()}" var="studlist">
+                                        <c:out value="${studlist.getName()}, ${studlist.getSurname()}"/></br>
 
                                     </c:forEach>
 
                                 </table>
-
-
-                            </td>
-                            <td id="teacher_row_class${tc.getId()}">${tc.getSchoolclass().getName()}</td>
-
+                                    <%--${par.getStudentList().getName()}, ${par.getStudentList().getSurname()}</td>--%>
                             <td>
-                                <input type="button" id="teacher_delete${tc.getId()}" class="btn btn-primary btn-sm" value="Pašalinti" onclick="teacher_delete_row(${tc.getId()})"/>
-                               <form action="/getoneteacher" method="post">
-                                   <button type="submit" name="getoneteacher" id="${tc.getId()}" class="btn btn-primary btn-sm" value="${tc.getId()}">Redaguoti</button>
-                               </form>
-
+                                <input type="button" id="student_delete${par.getId()}" class="btn btn-primary btn-sm" value="Pašalinti" onclick="parents_delete_row(${par.getId()})"/>
+                                <form action="/getoneparents" method="post">
+                                    <button type="submit" name="getoneparents" id="${par.getId()}" class="btn btn-primary btn-sm" value="${par.getId()}">Redaguoti</button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
@@ -193,16 +182,18 @@
 
 </div>
 
-<script type="text/javascript" src="../../resource/js/teacher.js"></script>
+<script type="text/javascript" src="../../resource/js/parents.js"></script>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 
-
 <script type="text/javascript" src="../../resource/js/jquery-3.2.1.min.js"></script>
-
 <script type="text/javascript" src="../../resource/js/bootstrap.min.js"></script>
+
+
+
 </body>
 </html>
