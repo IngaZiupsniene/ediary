@@ -4,6 +4,7 @@ import demo.model.*;
 import demo.service.parentsService.IParentsService;
 import demo.service.schoolclassService.ISchoolClassService;
 import demo.service.studentService.IStudentService;
+import demo.service.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,8 @@ public class StudentController {
     IStudentService iStudentService;
     @Autowired
     IParentsService iParentsService;
+    @Autowired
+    IUserService iUserService;
 
     @RequestMapping(value = "/studentlist", method = RequestMethod.GET)
     public ModelAndView studentlist() {
@@ -36,7 +39,17 @@ public class StudentController {
 
 
     @RequestMapping(value = "/addstudent", method = RequestMethod.POST)
-    public String addstudent( @ModelAttribute Student student){
+    public String addstudent( @ModelAttribute Student student, @RequestParam(value = "role") long roleid){
+
+        User user = new User();
+        user.setUsername(student.getName()+student.getSurname());
+        user.setPassword(student.getPersonalcode());
+        Role role = new Role();
+        role.setId(roleid);
+        user.setRole(role);
+
+        user.setId(iUserService.save(user).getId());
+        student.setUser(user);
         iStudentService.saveandflush(student);
         return "redirect:/studentlist";
     }

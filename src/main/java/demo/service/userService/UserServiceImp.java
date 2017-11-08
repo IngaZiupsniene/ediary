@@ -18,7 +18,7 @@ public class UserServiceImp implements IUserService {
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword())); //paduodam sifruotus slaptazodzius
 
@@ -26,6 +26,7 @@ public class UserServiceImp implements IUserService {
 
         user.setRole(user.getRole());
         iUserRep.save(user); //panaudojam save metoda - irasom duomenis i DB.
+        return user;
     }
 
 

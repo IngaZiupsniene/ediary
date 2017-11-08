@@ -11,4 +11,5 @@ public interface IStudentService {
     Student findById(long id);
     void delete(long id);
     Student saveandflush(Student student);
+    List<Student> findStudentsByParents_Id(long id);
 }

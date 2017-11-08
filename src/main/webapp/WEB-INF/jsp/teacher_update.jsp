@@ -88,12 +88,12 @@
 
                     </div>
 
-                                    <div class="row" style="padding-top: 10px" >
+                                    <div class="row" >
 
-                                        <div class="col" style="padding-top: 10px" >
+                                        <div class="col"  >
                                             <label>Pasirinkite auklėjamą klasę</label>
-                                            <select id="schoolclass" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
-                                                <%--<option style="padding-bottom: 10px" value="0"> </option>--%>
+                                            <select id="schoolclass" name="schoolclass" class="form-control" style="padding: 0px" >
+                                                <option >-</option>
                                             <c:forEach var="cl" items="${classlist}">
                                                 <option  value="${cl.getId()}">${cl.getName()}</option>
                                             </c:forEach>
@@ -105,9 +105,14 @@
 
 
                            <div class="row" style="padding-top: 10px">
-                               <div class="col-1">
-                                <button type="submit" class="btn btn-primary" name="teacherid" value="${oneteacher.getId()}" onclick="">Išsaugoti</button>
+                               <div class="col-6">
+                                <button type="submit" class="btn btn-primary" name="teacherid" value="${oneteacher.getId()}" onclick="">Išsaugoti pakoreguota mokytoja</button>
                            </div>
+                               <div class="col">
+
+                                   <button type="button" class="btn btn-secondary" onclick="location.href='/teacherlist'" >Grizti</button>
+
+                               </div>
                             </div>
 
                 </form>

@@ -70,16 +70,18 @@
                                     </div>
                                 </div>
 
-                                    <div class="row" style="padding-bottom: 10px" >
+                                    <div class="row" >
                                         <div class="col">
                                             <label>Identifikacijos kodas</label>
                                             <input type="text" name="personalcode" class="form-control">
                                         </div>
+                                        <%--nurodom is karto mokinio role:--%>
+                                        <input type="hidden" name="role" value="2">
                                     </div>
-                                <div class="row" style="padding-bottom: 10px" >
+                                <div class="row"  >
                                         <div class="col" >
                                             <label>Pasirinkite klasę:</label>
-                                            <select id="" name="schoolclass" class="form-control" >
+                                            <select id="" name="schoolclass" class="form-control" style="padding: 0px">
                                                 <%--<option style="padding-bottom: 10px" value="0">Pasirinkite klasę </option>--%>
                                             <c:forEach var="cl" items="${classlist}">
                                                 <option  value="${cl.getId()}">${cl.getName()}</option>

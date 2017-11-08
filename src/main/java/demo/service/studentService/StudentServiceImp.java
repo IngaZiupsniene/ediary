@@ -37,4 +37,9 @@ iStudentRep.delete(id);
     public Student saveandflush(Student student) {
         return iStudentRep.saveAndFlush(student);
     }
+
+    @Override
+    public List<Student> findStudentsByParents_Id(long id) {
+        return iStudentRep.findStudentsByParents_Id(id);
+    }
 }

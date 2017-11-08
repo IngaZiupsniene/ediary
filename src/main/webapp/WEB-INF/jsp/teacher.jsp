@@ -84,33 +84,36 @@
                                         <label>Identifikacijos kodas</label>
                                         <input type="text" name="personalcode" class="form-control">
                                     </div>
-
+                                    <%--nurodom is karto mokytojo role:--%>
+                                    <input type="hidden" name="role" value="3">
 
                                 </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="subject">Pasirinkite dėstomus dalykus: </label><br>
+                                        <select multiple class="form-control" name="subject" id="subject">
 
-                                <label for="subject">Dėstomas dalykas: </label><br>
-                                <select multiple class="form-control" name="subject" id="subject">
+                                            <c:forEach var="subject" items="${schoolsubjectlist}">
 
-                                    <c:forEach var="subject" items="${schoolsubjectlist}">
+                                                <option value="${subject.getId()}">${subject.getName()}</option>
+                                            </c:forEach>
 
-                                        <option value="${subject.getId()}">${subject.getName()}</option>
-                                    </c:forEach>
+                                        </select>
+                                    </div>
 
-                                </select>
-
-
-                                    <div class="row" style="padding-bottom: 10px" >
-
-                                        <div class="col" style="padding-bottom: 10px" >
-                                            <select id="schoolclass" name="schoolclass" class="form-control" style="padding-bottom: 10px" >
-                                                <option style="padding-bottom: 10px" value="0">Pasirinkite auklėjamą klasę </option>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col"  >
+                                        <select id="schoolclass" name="schoolclass" class="form-control"  style="padding: 0px" >
+                                            <option value="0">Pasirinkite auklėjamą klasę </option>
                                             <c:forEach var="cl" items="${classlist}">
                                                 <option  value="${cl.getId()}">${cl.getName()}</option>
                                             </c:forEach>
-                                            </select>
-                                        </div>
-
+                                        </select>
                                     </div>
+                                </div>
+
+
 
                             </div>
 

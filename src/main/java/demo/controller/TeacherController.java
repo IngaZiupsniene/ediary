@@ -6,6 +6,7 @@ import demo.service.schoolclassService.ISchoolClassService;
 import demo.service.schoolsubjectService.ISchoolsubjectService;
 import demo.service.schoolsubjectname.ISchoolSubjectNameService;
 import demo.service.teacherService.ITeacherService;
+import demo.service.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,8 @@ public class TeacherController {
     IRoleService iRoleService;
     @Autowired
     JdbcTemplate jdbcTemplate;
+    @Autowired
+     IUserService iUserService;
 
 
     @RequestMapping(value = "/teacherlist", method = RequestMethod.GET)
@@ -56,14 +59,26 @@ public class TeacherController {
                                  @RequestParam (value = "email") String email,
                                  @RequestParam (value = "personalcode") String personalcode,
                                  @RequestParam (value = "schoolclass") Schoolclass schoolclassid,
-                                 @RequestParam (value = "subject") long[] subject
+                                 @RequestParam (value = "subject") long[] subject,
+                                 @RequestParam(value = "role") long roleid
                                  ){
+
+            User user = new User();
+            user.setUsername(name+surname);
+            user.setPassword(personalcode);
+            Role role = new Role();
+            role.setId(roleid);
+            user.setRole(role);
+
+           user.setId(iUserService.save(user).getId());
+
 
         Teacher teacher= new Teacher();
         teacher.setName(name);
         teacher.setSurname(surname);
         teacher.setPhone(phone);
         teacher.setEmail(email);
+        teacher.setUser(user);
 
         teacher.setPersonalcode(personalcode);
         teacher.setSchoolclass(schoolclassid);
