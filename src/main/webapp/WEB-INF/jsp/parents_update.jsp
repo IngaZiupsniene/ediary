@@ -41,6 +41,79 @@
 
             <div class="row">
                 <div class="col-6">
+
+
+
+                    <div class="row" style="padding-top: 10px" >
+                        <div class="col">
+                            <table class="table ">
+                                <tr >
+                                    <th>Vaikai:</th>
+                                    <th></th>
+                                    <th>
+                                        <%--cia bus mazas modalas - prideti nauja mokini--%>
+                                        <button type="button"  class="btn btn-dark btn-sm" data-toggle="modal" data-target="#parents_student_update_Modal">Prideti nauja vaika</button>
+
+                                        <!-- Modal -->
+
+                                        <form action="/addnewstudenttoparent" method="post">
+                                            <div class="modal fade" id="parents_student_update_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Naujo vaiko pasirinkimas:</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            <div class="row" >
+                                                                <div class="col" >
+                                                                    <label>Pasirinkite vaika:</label>
+                                                                    <select  multiple id="" name="studentid" class="form-control" >
+                                                                        <%--<option style="padding-bottom: 10px" value="0">Pasirinkite klasę </option>--%>
+                                                                        <c:forEach var="stud" items="${studentlist}">
+                                                                            <option  value="${stud.getId()}">${stud.getName()},${stud.getSurname()} </option>
+                                                                        </c:forEach>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="parents_id_to_student" value="${oneparents.getId()}">
+
+
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary" onclick="">Išsaugoti</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Grįžti</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- Modal -->
+
+                                    </th>
+                                </tr>
+
+                                <c:forEach var="stud" items="${oneparents.getStudentList()}">
+                                    <tr id="student_update_row${stud.getId()}">
+                                        <td id="student_row_surname${stud.getId()}">${stud.getSurname()}</td>
+                                        <td id="student_row_name${stud.getId()}">${stud.getName()}</td>
+                                        <input type="hidden" name="student_update_id" value="${stud.getId()}">
+                                        <td>
+                                            <input type="button" id="delete_student_update${stud.getId()}" class="btn btn-danger btn-sm" value="Pašalinti" onclick="delete_student_update(${stud.getId()})"/>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+
+
                     <form action="/updateparents" method="post">
 
                                 <div class="row">
@@ -75,88 +148,25 @@
                                         <input type="text" name="personalcode" class="form-control" value="${oneparents.getPersonalcode()}"/>
                                     </div>
                                 </div>
-
-
-                                    <div class="row" style="padding-top: 10px" >
-                                        <div class="col">
-                                            <%--<table class="table ">--%>
-                                                <%--<tr >--%>
-                                                    <%--<th>Vaikai:</th>--%>
-                                                    <%--<th></th>--%>
-                                                    <%--<th></th>--%>
-                                                <%--</tr>--%>
-
-                                                <%--<c:forEach var="stud" items="${oneparents.getStudentList()}">--%>
-                                                    <%--<tr id="student_row${stud.getId()}">--%>
-                                                        <%--<td id="student_row_surname${stud.getId()}">${stud.getSurname()}</td>--%>
-                                                        <%--<td id="student_row_name${stud.getId()}">${stud.getName()}</td>--%>
-                                                        <%--<td>--%>
-                                                            <%--<input type="button" id="delete_student_update${stud.getId()}" class="btn btn-secondary btn-sm" value="Pašalinti" onclick="delete_student_update(${stud.getId()})"/>--%>
-                                                        <%--</td>--%>
-                                                    <%--</tr>--%>
-                                                <%--</c:forEach>--%>
-                                            <%--</table>--%>
-
-                                            <label style="padding-top: 10px; text-decoration: underline">Mokiniai(vaikai):</label>
-                                            <c:forEach items="${oneparents.getStudentList()}" var="stud">
-
-                                                <c:if test = "${empty stud}">
-                                                    <p>Nera priskirtu vaiku - issirinkite is saraso...></p>
-                                                    <input type="hidden" name="student_update" value="${0}">
-                                                </c:if>
-                                                <c:if test="${stud!=null}">
-                                                <p><c:out value="${stud.getSurname()}, ${stud.getName()}" /></p>
-                                                <input type="hidden" name="student_update" value="${stud.getId()}">
-                                                </c:if>
-
-                                                <%--<c:choose>--%>
-                                                    <%--<c:when test="${empty stud}">--%>
-                                                        <%--do something--%>
-                                                    <%--</c:when>--%>
-                                                    <%--<c:otherwise>--%>
-                                                        <%--do this when nothing else is true--%>
-                                                    <%--</c:otherwise>--%>
-                                                <%--</c:choose>--%>
-
-                                            </c:forEach>
-                                        </div>
-
-
-                                            <div class="col-5" >
-                                                <label>Pasirinkite kita mokini(vaika):</label>
-                                                <select  multiple name="student_update_new" class="form-control" >
-                                                    <%--<option style="padding-bottom: 10px" value="0">Pasirinkite klasę </option>--%>
-                                                    <c:forEach var="stud" items="${studentlist}">
-                                                        <option  value="${stud.getId()}">${stud.getName()},${stud.getSurname()} </option>
-                                                    </c:forEach>
-                                                </select>
-                                            </div>
-
-                                    </div>
-
-
-
-
-
-                           <div class="row" style="padding-top: 10px">
-                               <div class="col-5">
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-5">
 
                                 <button type="submit" class="btn btn-primary" name="parentid" value="${oneparents.getId()}">Išsaugoti pakoreguota globeja</button>
 
-                           </div>
-                               <div class="col">
-
-                                   <button type="button" class="btn btn-secondary" onclick="location.href='/parentslist'" >Grizti</button>
-
-                               </div>
                             </div>
+                            <div class="col">
 
-            </form>
+                                <button type="button" class="btn btn-secondary" onclick="location.href='/parentslist'" >Grizti</button>
+
+                            </div>
+                        </div>
+
+                        </form>
+
 
                 </div>
 
         </div>
-
 
 </div>
         <div class="col" style="height: 1000px; background-color: rgba(40,42,92,0.59)">
@@ -167,14 +177,20 @@
 </div>
 </div>
 
+<script type="text/javascript" src="../../resource/js/parents.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<%--<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--%>
+<%--<script type="text/javascript" src="../../resource/js/jquery-3.2.1.min.js"></script>--%>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 
 
-<script type="text/javascript" src="../../resource/js/jquery-3.2.1.min.js"></script>
 
-<script type="text/javascript" src="../../resource/js/bootstrap.min.js"></script>
+<%--<script type="text/javascript" src="../../resource/js/bootstrap.min.js"></script>--%>
 </body>
 </html>

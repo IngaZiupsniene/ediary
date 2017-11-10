@@ -35,4 +35,9 @@ public class SchoolSubjectServiceImpl implements ISchoolsubjectService{
     public void deleteSchoolsubjectsByTeacher_Id(long id) {
         iSchoolSubjectRep.deleteSchoolsubjectsByTeacher_Id(id);
     }
+
+    @Override
+    public Schoolsubject findById(long id) {
+        return iSchoolSubjectRep.findOne(id);
+    }
 }

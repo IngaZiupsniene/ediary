@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.security.auth.Subject;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,8 +32,6 @@ public class TeacherController {
     @Autowired
     IRoleService iRoleService;
     @Autowired
-    JdbcTemplate jdbcTemplate;
-    @Autowired
      IUserService iUserService;
 
 
@@ -45,6 +45,7 @@ public class TeacherController {
 
         List<SchoolSubjectName> schoolSubjectNameList=iSchoolSubjectNameService.subjectnamelist();
         model.addObject("schoolsubjectlist", schoolSubjectNameList);
+
 
         List<Role> roleList=iRoleService.roleList();
         model.addObject("rolelist", roleList);
@@ -98,7 +99,7 @@ public class TeacherController {
 
          }
 
-    @RequestMapping(value="/getoneteacher", method = RequestMethod.POST)
+    @RequestMapping(value="/getoneteacher", method = RequestMethod.GET)
     public ModelAndView getoneteacher(@RequestParam (value = "getoneteacher") long id) {
         ModelAndView model = new ModelAndView("teacher_update");
         Teacher teacher1=iTeacherService.findById(id);
@@ -119,8 +120,7 @@ public class TeacherController {
 
         Teacher teacher1= iTeacherService.saveandflush(teacher);
 
-//         String sqldelete="DELETE from ediary_schoolsubject WHERE teacher_id=?";
-//         jdbcTemplate.update(sqldelete, teacher.getId());
+
          iSchoolsubjectService.deleteSchoolsubjectsByTeacher_Id(teacher.getId());
 
         addshcoolsubject(subjectid, teacher1);
@@ -141,6 +141,42 @@ public class TeacherController {
         }
     }
 
+
+
+    @RequestMapping(value = "/subjectdeletefromteacher", method = RequestMethod.POST)
+    @ResponseBody
+    public void subjectdeletefromteacher(@RequestBody Schoolsubject subject){
+
+        Schoolsubject schoolsubject= iSchoolsubjectService.findById(subject.getId());
+        schoolsubject.setSchoolSubjectName(null);
+        iSchoolsubjectService.saveAndFlush(schoolsubject);
+    }
+
+
+    @RequestMapping(value = "/addnewsubjecttoteacher", method = RequestMethod.POST)
+    public String addparents(@RequestParam (value = "subjectid") long[] subjectnameid,
+                             @RequestParam (value = "teacher_id_to_subject") long teacher_id_to_subject) {
+        List<Long> list=new ArrayList<>();
+        for(Long a:subjectnameid){
+            System.out.println(list.add(a));
+        }
+
+
+
+        for (long s : subjectnameid) {
+            SchoolSubjectName schoolSubjectName=new SchoolSubjectName();
+            schoolSubjectName.setId(s);
+
+
+            Schoolsubject schoolsubject = new Schoolsubject();
+            schoolsubject.setSchoolSubjectName(schoolSubjectName);
+
+            schoolsubject.setTeacher(iTeacherService.findById(teacher_id_to_subject));
+
+            iSchoolsubjectService.saveAndFlush(schoolsubject);
+        }
+        return "redirect:/getoneteacher?getoneteacher="+teacher_id_to_subject;
+    }
 
 
 }

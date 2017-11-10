@@ -3,7 +3,7 @@ package demo.controller;
 import demo.model.Role;
 import demo.model.User;
 import demo.service.roleService.IRoleService;
-import demo.service.ISecurityService;
+import demo.service.sequrityService.ISecurityService;
 import demo.service.userService.IUserService;
 import demo.util.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;

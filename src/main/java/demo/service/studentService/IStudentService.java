@@ -12,4 +12,5 @@ public interface IStudentService {
     void delete(long id);
     Student saveandflush(Student student);
     List<Student> findStudentsByParents_Id(long id);
+    void savelist(List<Student> studentList);
 }

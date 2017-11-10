@@ -177,7 +177,7 @@
 
                             <td>
                                 <input type="button" id="teacher_delete${tc.getId()}" class="btn btn-primary btn-sm" value="Pašalinti" onclick="teacher_delete_row(${tc.getId()})"/>
-                               <form action="/getoneteacher" method="post">
+                               <form action="/getoneteacher" method="get">
                                    <button type="submit" name="getoneteacher" id="${tc.getId()}" class="btn btn-primary btn-sm" value="${tc.getId()}">Redaguoti</button>
                                </form>
 

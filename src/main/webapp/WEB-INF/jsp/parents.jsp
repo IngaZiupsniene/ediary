@@ -165,7 +165,7 @@
                                     <%--${par.getStudentList().getName()}, ${par.getStudentList().getSurname()}</td>--%>
                             <td>
                                 <input type="button" id="student_delete${par.getId()}" class="btn btn-primary btn-sm" value="Pašalinti" onclick="parents_delete_row(${par.getId()})"/>
-                                <form action="/getoneparents" method="post">
+                                <form action="/getoneparents" method="get">
                                     <button type="submit" name="getoneparents" id="${par.getId()}" class="btn btn-primary btn-sm" value="${par.getId()}">Redaguoti</button>
                                 </form>
                             </td>

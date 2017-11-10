@@ -40,6 +40,78 @@
             </div>
                 </div>
 
+
+            <div class="row" style="padding-top: 10px" >
+                <div class="col">
+                    <table class="table ">
+                        <tr >
+                            <th>Destomi dalykai:</th>
+                            <th></th>
+                            <th>
+                                <%--cia bus mazas modalas - prideti nauja dalyka--%>
+                                <button type="button"  class="btn btn-dark btn-sm" data-toggle="modal" data-target="#teacher_subject_update_Modal">Prideti nauja dalyka</button>
+
+                                <!-- Modal -->
+
+                                <form action="/addnewsubjecttoteacher" method="post">
+                                    <div class="modal fade" id="teacher_subject_update_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Naujo dalyko pasirinkimas:</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                    <div class="row" >
+                                                        <div class="col" >
+                                                            <label class="" >Dėstomas dalykas: </label><br>
+                                                            <select multiple class="form-control" name="subjectid" ">
+
+                                                            <c:forEach var="subject" items="${schoolsubjectlist}">
+
+                                                                <option value="${subject.getId()}">${subject.getName()}</option>
+                                                            </c:forEach>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <input type="hidden" name="teacher_id_to_subject" value="${oneteacher.getId()}">
+
+
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary" onclick="">Išsaugoti</button>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Grįžti</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- Modal -->
+
+                            </th>
+                        </tr>
+
+                        <c:forEach var="sub" items="${oneteacher.getSubject()}">
+                            <tr id="subject_update_row${sub.getId()}">
+                                <td> <c:out value="${sub.getSchoolSubjectName().getName()}"/></br> </td>
+                                <input type="hidden" name="subject_update_id" value="${sub.getId()}">
+                                <td>
+                                    <input type="button" id="delete_subject_update${sub.getId()}" class="btn btn-danger btn-sm" value="Pašalinti" onclick="delete_subject_update(${sub.getId()})"/>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
             <div class="row">
                 <div class="col-6">
                 <form action="/updateteacher" method="post">
@@ -72,28 +144,14 @@
 
 
                                 </div>
-                    <div class="row">
-                        <div class="col-8">
 
-                            <label class="" >Dėstomas dalykas: </label><br>
-                            <select multiple class="form-control" name="subjectid" ">
-
-                                <c:forEach var="subject" items="${schoolsubjectlist}">
-
-                                    <option value="${subject.getId()}">${subject.getName()}</option>
-                                </c:forEach>
-
-                            </select>
-                        </div>
-
-                    </div>
 
                                     <div class="row" >
 
                                         <div class="col"  >
                                             <label>Pasirinkite auklėjamą klasę</label>
                                             <select id="schoolclass" name="schoolclass" class="form-control" style="padding: 0px" >
-                                                <option >-</option>
+                                                <option selected>Pasirinkti:</option>
                                             <c:forEach var="cl" items="${classlist}">
                                                 <option  value="${cl.getId()}">${cl.getName()}</option>
                                             </c:forEach>
@@ -134,6 +192,7 @@
 
 
 
+<script type="text/javascript" src="../../resource/js/teacher.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

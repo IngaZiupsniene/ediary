@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ISchoolClassService {
     List<Schoolclass> schoolclasslist();
+   Schoolclass findSchoolclassByName(String classname);
 
 
 }

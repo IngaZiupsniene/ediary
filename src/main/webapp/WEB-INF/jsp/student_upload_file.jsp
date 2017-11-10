@@ -36,89 +36,44 @@
 
             <div class="row" style="padding-bottom: 20px">
                <div class="col-6">
-                    <h3>Mokinio redagavimas</h3>
+                    <h3>Mokiniu saraso ikelimas is failo</h3>
             </div>
                 </div>
+
+            <%--<form method="POST" action="/studentfileupload" enctype="multipart/form-data">--%>
+                <%--File to upload: <input type="file" name="file">--%>
+
+                <%--Name: <input type="text" name="name">--%>
+
+
+                <%--<input type="submit" value="Upload"> Press here to upload the file!--%>
+            <%--</form>--%>
+
+
+        <form method="post"  action="/studentfileupload"  enctype="multipart/form-data">
+
 
             <div class="row">
-                <div class="col-6">
-                    <form action="/updatestudent" method="post">
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Vardas</label>
-                                        <input type="text" name="name" class="form-control" value="${onestudent.getName()}"/>
-                                    </div>
-                                    <div class="col">
-                                        <label>Pavardė</label>
-                                        <input type="text" name="surname" class="form-control" value="${onestudent.getSurname()}"/>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <label>Identifikacijos kodas</label>
-                                        <input type="text" name="personalcode" class="form-control" value="${onestudent.getPersonalcode()}"/>
-                                    </div>
-                                </div>
-
-
-                                    <div class="row" style="padding-top: 10px" >
-                                        <div class="col">
-                                            <label style="padding-top: 10px; text-decoration: underline">Priskirta klase:</label>
-                                            <p type="text"  class="old_form">${onestudent.getSchoolclass().getName()}</p>
-                                            <input type="hidden" name="schoolclass" value="${onestudent.getSchoolclass().getId()}">
-                                        </div>
-
-                                        <div class="col">
-                                            <label>Pasirinkite kita klasę:</label>
-                                            <select id="schoolclass"  name="schoolclass_new" class="form-control" style="padding: 0px" >
-                                                <option style="padding-bottom: 10px" value="${onestudent.getSchoolclass().getId()}"> pasirinkta klase - ${onestudent.getSchoolclass().getName()}</option>
-                                            <c:forEach var="cl" items="${classlist}">
-                                                <option  value="${cl.getId()}">${cl.getName()}</option>
-                                            </c:forEach>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                        <div class="row"  >
-                            <div class="col">
-                                <label style="padding-top: 10px; text-decoration: underline">Mokinio tevai:</label>
-                                <p type="text"  class="old_form">${onestudent.getParents().getSurname()}, ${onestudent.getParents().getName()} </p>
-                                <input type="hidden" name="parents" value="${onestudent.getParents().getId()}">
-                            </div>
-
-                            <div class="col"  >
-                                <label>Pasirinkite kita globeja:</label>
-                                <select id="parents"  name="parents_new" class="form-control" style="padding: 0px" >
-                                    <option style="padding-bottom: 10px" value="${onestudent.getParents().getId()}"> mokinio tevai - ${onestudent.getParents().getSurname()}, ${onestudent.getParents().getName()}</option>
-                                    <c:forEach var="par" items="${parentlist}">
-                                        <option  value="${par.getId()}">${par.getSurname()}, ${par.getName()} </option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-
-                        </div>
-
-                           <div class="row" style="margin-top: 20px">
-                               <div class="col-5">
-
-                                <button type="submit" class="btn btn-primary" name="studentid" value="${onestudent.getId()}" >Išsaugoti pakoreguota mokini</button>
-
-                           </div>
-                               <div class="col">
-
-                                   <button type="button" class="btn btn-secondary" onclick="location.href='/studentlist'" >Grizti</button>
-
-                               </div>
-                            </div>
-
-            </form>
+                <div class="col">
+                    <input class="form-control" type="file" name="file" /><br/>
 
                 </div>
-            </div>
+                <div class="col">
+                    <p>${message}</p>
 
+                </div>
+
+
+            </div>
+                <div class="row" style="margin-top: 10px">
+                    <div class="col">
+                    <button type="submit" class="btn btn-primary" >Irasyti</button>
+                    </div>
+                <%--<button type="submit" >Įrašyti</button>--%>
+                    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">--%>
+
+            </div>
+        </form>
             </div>
 
         </div>

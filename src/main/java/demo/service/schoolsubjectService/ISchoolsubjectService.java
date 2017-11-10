@@ -9,4 +9,5 @@ public interface ISchoolsubjectService {
     Schoolsubject saveAndFlush(Schoolsubject schoolsubject);
     void delete(long id);
     void deleteSchoolsubjectsByTeacher_Id(long id);
+    Schoolsubject findById(long id);
 }

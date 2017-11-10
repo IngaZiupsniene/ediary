@@ -65,7 +65,7 @@ public class ParentsController {
         return "redirect:/parentslist";
     }
 
-    @RequestMapping(value="/getoneparents", method = RequestMethod.POST)
+    @RequestMapping(value="/getoneparents", method = RequestMethod.GET)
     public ModelAndView getoneparent(@RequestParam (value = "getoneparents") long id) {
         ModelAndView model = new ModelAndView("parents_update");
         Parents parents=iParentsService.findById(id);
@@ -83,9 +83,7 @@ public class ParentsController {
                               @RequestParam (value = "personalcode") String personalcode,
                               @RequestParam (value = "phone") String phone,
                               @RequestParam (value = "email") String email,
-                              @RequestParam (value = "adress") String adress,
-                              @RequestParam (value = "student_update") long[] student_update,
-                              @RequestParam (value = "student_update_new") long[] student_update_new){
+                              @RequestParam (value = "adress") String adress ){
 
         Parents parents=new Parents();
         parents.setId(parentid);
@@ -98,30 +96,35 @@ public class ParentsController {
 
         iParentsService.saveandflush(parents);
 
-
-
-if(student_update_new!=null){
-    for(long stud_new:student_update_new){
-        for (long stud_old:student_update){
-            if (stud_new!=stud_old){
-                Student  student_old =  iStudentService.findById(stud_old);
-                student_old.setParents(null);
-                Student  student =  iStudentService.findById(stud_new);
-                student.setParents(parents);
-                iStudentService.saveandflush(student);
-            }
-//            student =  iStudentService.findById(stud_old);
-//            student.setParents(parents);
-//            iStudentService.saveandflush(student);
-        }
-
-    }
-}
-
-
         return "redirect:/parentslist";
 
     }
 
+
+
+    @RequestMapping(value = "/studentdeletefromparents", method = RequestMethod.POST)
+    @ResponseBody
+    public void studentdeletefromparents(@RequestBody Student student){
+
+       Student student1= iStudentService.findById(student.getId());
+       student1.setParents(null);
+       iStudentService.save(student1);
+    }
+
+
+    @RequestMapping(value = "/addnewstudenttoparent", method = RequestMethod.POST)
+    public String addparents(@RequestParam (value = "studentid") long[] studentid,
+                             @RequestParam (value = "parents_id_to_student") long parents_id_to_student) {
+
+        for (long s : studentid) {
+            Student student = iStudentService.findById(s);
+
+
+            student.setParents(iParentsService.findById(parents_id_to_student));
+
+            iStudentService.saveandflush(student);
+        }
+        return "redirect:/getoneparents?getoneparents="+parents_id_to_student;
+    }
 
 }

@@ -1,4 +1,4 @@
-package demo.service;
+package demo.service.sequrityService;
 
 public interface ISecurityService {
     String findLoginUsername();

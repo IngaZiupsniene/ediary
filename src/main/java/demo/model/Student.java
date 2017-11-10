@@ -17,6 +17,12 @@ public class Student {
     public Student() {
     }
 
+    public Student(String name, String surname, String personalcode) {
+        this.name = name;
+        this.surname = surname;
+        this.personalcode = personalcode;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {

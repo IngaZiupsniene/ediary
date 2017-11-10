@@ -19,4 +19,9 @@ public class SchoolclassServiceImpl implements ISchoolClassService{
         return iSchoolClassRep.findAll();
     }
 
+    @Override
+    public Schoolclass findSchoolclassByName(String classname) {
+        return iSchoolClassRep.findSchoolclassByName(classname);
+    }
+
 }

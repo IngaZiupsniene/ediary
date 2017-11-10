@@ -51,7 +51,7 @@ function parents_delete_row(id) {
 }
 
 function delete_student_update(id) {
-    document.getElementById("student_update"+id).outerHTML="";
+    document.getElementById("student_update_row"+id).outerHTML="";
     var student_delete__update_data={id:id};
     $.ajax({
         url:"/studentdeletefromparents",

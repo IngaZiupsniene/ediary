@@ -42,4 +42,12 @@ iStudentRep.delete(id);
     public List<Student> findStudentsByParents_Id(long id) {
         return iStudentRep.findStudentsByParents_Id(id);
     }
+
+    @Override
+    public void savelist(List<Student> studentList) {
+        iStudentRep.save(studentList);
+
+    }
+
+
 }

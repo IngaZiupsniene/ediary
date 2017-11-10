@@ -1,18 +1,22 @@
 package demo.controller;
 
 import demo.model.*;
+import demo.service.fileuploadService.IFileUploadService;
 import demo.service.parentsService.IParentsService;
 import demo.service.schoolclassService.ISchoolClassService;
 import demo.service.studentService.IStudentService;
 import demo.service.userService.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -25,6 +29,8 @@ public class StudentController {
     IParentsService iParentsService;
     @Autowired
     IUserService iUserService;
+    @Autowired
+    IFileUploadService iFileUploadService;
 
     @RequestMapping(value = "/studentlist", method = RequestMethod.GET)
     public ModelAndView studentlist() {
@@ -99,6 +105,41 @@ public class StudentController {
         return "redirect:/studentlist";
 
     }
+
+    @RequestMapping(value = "/studentfromfile", method = RequestMethod.GET)
+    public String studentfromfile() {
+        return "student_upload_file";
+    }
+
+
+    @RequestMapping(value = "/studentfileupload", method = RequestMethod.POST)
+    public String singleFileUpload(@RequestParam("file") MultipartFile file, Model model) {
+
+              String upload_path = "C:\\Users\\Dainius\\IdeaProjects\\A_Projektas\\ediary\\src\\main\\webapp\\resource\\csv\\";
+
+        if (file.isEmpty()) {
+            model.addAttribute("message", "Prašome pasirinkti failą");
+        }
+        try {
+
+            byte[] bytes = file.getBytes();
+            String filename  = file.getOriginalFilename();
+            Path path = Paths.get(upload_path + filename);
+            Files.write(path, bytes);
+
+            List<Student> studentList = iFileUploadService.getListFromFile(upload_path+filename);
+
+            iStudentService.savelist(studentList);
+
+            model.addAttribute("message", "Duomenys iš failo "+file.getOriginalFilename()+" sėkmingai pridėti");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "student_upload_file";
+    }
+
 
 
 

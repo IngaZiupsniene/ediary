@@ -9,4 +9,5 @@ public interface IStudentRep extends JpaRepository<Student, Long> {
     List<Student> findStudentsByParents_Id(long id);
 
 
+
 }

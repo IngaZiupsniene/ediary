@@ -34,7 +34,7 @@
                 <div>
                     <ul>
                         <li><a href="/studentlist">Mokiniu sarasas</a></li>
-                        <li><a href="/studentfromfile">Perkelimas is/i failo</a></li>
+                        <li><a href="/studentfromfile">Perkelimas is failo</a></li>
                     </ul>
                 </div>
             </li>
