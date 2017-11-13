@@ -10,6 +10,7 @@ public class Schoolsubject {
     private long id;
     private SchoolSubjectName schoolSubjectName;
     private Teacher teacher;
+    private ClassListTable classListTable;
 
 
 
@@ -42,5 +43,14 @@ public class Schoolsubject {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    @ManyToOne
+    public ClassListTable getClassListTable() {
+        return classListTable;
+    }
+
+    public void setClassListTable(ClassListTable classListTable) {
+        this.classListTable = classListTable;
     }
 }

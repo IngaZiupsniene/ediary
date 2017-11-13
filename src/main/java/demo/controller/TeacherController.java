@@ -114,16 +114,22 @@ public class TeacherController {
 
     @RequestMapping(value = "/updateteacher", method = RequestMethod.POST, consumes = {"application/x-www-form-urlencoded"})
     public String editteacher(@ModelAttribute Teacher teacher,
-                              @RequestParam (value = "subjectid") long[] subjectid,
-                              @RequestParam(value = "teacherid") long teacherid){
+//                              @RequestParam (value = "subject_update_id") long[] subjectid,
+                              @RequestParam(value = "teacherid") long teacherid,
+                              @RequestParam (value = "schoolclass") Schoolclass schoolclass,
+                              @RequestParam (value = "schoolclass_new") Schoolclass schoolclass_newid){
+
         teacher.setId(teacherid);
+        if(schoolclass_newid!=schoolclass){
+            teacher.setSchoolclass(schoolclass_newid);
+        }else teacher.setSchoolclass(schoolclass);
 
         Teacher teacher1= iTeacherService.saveandflush(teacher);
 
 
-         iSchoolsubjectService.deleteSchoolsubjectsByTeacher_Id(teacher.getId());
-
-        addshcoolsubject(subjectid, teacher1);
+//         iSchoolsubjectService.deleteSchoolsubjectsByTeacher_Id(teacher.getId());
+//
+//        addshcoolsubject(subjectid, teacher1);
 
         return "redirect:/teacherlist";
     }
@@ -148,8 +154,8 @@ public class TeacherController {
     public void subjectdeletefromteacher(@RequestBody Schoolsubject subject){
 
         Schoolsubject schoolsubject= iSchoolsubjectService.findById(subject.getId());
-        schoolsubject.setSchoolSubjectName(null);
-        iSchoolsubjectService.saveAndFlush(schoolsubject);
+//        schoolsubject.setSchoolSubjectName(null);
+        iSchoolsubjectService.delete(schoolsubject.getId());
     }
 
 

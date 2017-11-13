@@ -47,6 +47,15 @@
                     </ul>
                 </div>
             </li>
+            <li>
+                <a href="/attendance">Lankomumas</a>
+                <div>
+                    <ul>
+                        <li><a href="/attendance">Lankomumas</a></li>
+                        <li><a href="#">?</a></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </nav>
 </div>

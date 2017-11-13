@@ -65,10 +65,12 @@
                                                 </div>
                                                 <div class="modal-body">
 
+
+
                                                     <div class="row" >
                                                         <div class="col" >
                                                             <label class="" >Dėstomas dalykas: </label><br>
-                                                            <select multiple class="form-control" name="subjectid" ">
+                                                            <select multiple class="form-control" name="subjectid" >
 
                                                             <c:forEach var="subject" items="${schoolsubjectlist}">
 
@@ -97,7 +99,7 @@
 
                         <c:forEach var="sub" items="${oneteacher.getSubject()}">
                             <tr id="subject_update_row${sub.getId()}">
-                                <td> <c:out value="${sub.getSchoolSubjectName().getName()}"/></br> </td>
+                                <td><c:out value="${sub.getSchoolSubjectName().getName()}"></c:out></td>
                                 <input type="hidden" name="subject_update_id" value="${sub.getId()}">
                                 <td>
                                     <input type="button" id="delete_subject_update${sub.getId()}" class="btn btn-danger btn-sm" value="Pašalinti" onclick="delete_subject_update(${sub.getId()})"/>
@@ -145,21 +147,24 @@
 
                                 </div>
 
+                    <div class="row" style="padding-top: 10px" >
+                        <div class="col">
+                            <label style="padding-top: 10px; text-decoration: underline">Priskirta klase:</label>
+                            <p type="text"  class="old_form">${oneteacher.getSchoolclass().getName()}</p>
+                            <input type="hidden" name="schoolclass" value="${oneteacher.getSchoolclass().getId()}">
+                        </div>
 
-                                    <div class="row" >
+                        <div class="col">
+                            <label>Pasirinkite kita klasę:</label>
+                            <select id="schoolclass"  name="schoolclass_new" class="form-control" style="padding: 0px" >
+                                <option style="padding-bottom: 10px" value="${oneteacher.getSchoolclass().getId()}"> pasirinkta klase - ${oneteacher.getSchoolclass().getName()}</option>
+                                <c:forEach var="cl" items="${classlist}">
+                                    <option  value="${cl.getId()}">${cl.getName()}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
 
-                                        <div class="col"  >
-                                            <label>Pasirinkite auklėjamą klasę</label>
-                                            <select id="schoolclass" name="schoolclass" class="form-control" style="padding: 0px" >
-                                                <option selected>Pasirinkti:</option>
-                                            <c:forEach var="cl" items="${classlist}">
-                                                <option  value="${cl.getId()}">${cl.getName()}</option>
-                                            </c:forEach>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
+                    </div>
 
 
                            <div class="row" style="padding-top: 10px">

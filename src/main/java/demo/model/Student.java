@@ -13,6 +13,7 @@ public class Student {
     private Parents parents;
     private User user;
     private String personalcode;
+    private ClassTable classTableinstudent;
 
     public Student() {
     }
@@ -83,5 +84,14 @@ public class Student {
 
     public void setPersonalcode(String personalcode) {
         this.personalcode = personalcode;
+    }
+
+    @ManyToOne
+    public ClassTable getClassTableinstudent() {
+        return classTableinstudent;
+    }
+
+    public void setClassTableinstudent(ClassTable classTableinstudent) {
+        this.classTableinstudent = classTableinstudent;
     }
 }
